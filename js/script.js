@@ -6,9 +6,7 @@ console.log("Let's Go!!!")
 let numeroCelle;
 const numeroBombe = 16;
 let arrayBombe = [];
-for(let y = 0 ; y < numeroBombe; y++){
-    
-}
+
 let campo = document.getElementById('campo');
 let griglia = document.createElement('div');
 let livello = document.getElementById('livelli').value;
@@ -25,7 +23,14 @@ switch(livello){
     break;
 
 }
-
+    while (arrayBombe.length < numeroBombe){
+    let bomba = randomNumber(1, numeroCelle);
+    if(!arrayBombe.includes(bomba)){
+        arrayBombe.push(bomba);
+    }
+}
+console.log(arrayBombe)
+let numericlick = [];
 function GeneraCelle(nCelle){
     let Nlato = Math.sqrt(numeroCelle)
     let cella = document.createElement('div');
@@ -37,6 +42,8 @@ function GeneraCelle(nCelle){
     `;
     cella.addEventListener('click', function(){
         cella.classList.add('verde');
+        numericlick.push(cella.innerText);
+        console.log(numericlick)
     })
     return cella;
 }
