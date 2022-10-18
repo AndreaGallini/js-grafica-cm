@@ -6,7 +6,7 @@ console.log("Let's Go!!!")
 let numeroCelle;
 const numeroBombe = 16;
 let arrayBombe = [];
-
+let score = 0;
 let campo = document.getElementById('campo');
 let griglia = document.createElement('div');
 let livello = document.getElementById('livelli').value;
@@ -29,11 +29,13 @@ switch(livello){
         arrayBombe.push(bomba);
     }
 }
+let maxAttempt = numeroCelle - numeroBombe
+
 console.log(arrayBombe)
 let numericlick = [];
 function GeneraCelle(nCelle){
     let Nlato = Math.sqrt(numeroCelle)
-    let cella = document.createElement('div');
+    const cella = document.createElement('div');
     cella.classList.add('box');
     cella.style.width = `calc(100% / ${Nlato})`
     cella.style.height = `calc(100% / ${Nlato})`
@@ -41,22 +43,32 @@ function GeneraCelle(nCelle){
     <p>${nCelle}</p>
     `;
   
-    cella.addEventListener('click', function(){
-        console.log(cella.innerText)
-        if(!arrayBombe.includes(parseInt(cella.innerText))){
-            cella.classList.add('verde');
-
-        }else{
-            cella.classList.add('bomba')
-            console.log('bomba')
-        }
-        numericlick.push(cella.innerText);
+    cella.addEventListener('click', listener);
+        numericlick.push(parseInt(cella.innerText));
         console.log(numericlick)
+        return cella;
 
-    })
-    return cella;
 }
 
+function listener(){
+    console.log(this.innerText)
+    if(!arrayBombe.includes(parseInt(this.innerText))){
+        this.classList.add('verde');
+        true;
+        score ++
+
+
+    }else{
+        this.classList.add('bomba')
+        console.log('bomba')
+        this.removeEventListener('click', listener)
+        false;
+        endGame();
+        
+    }
+    console.log(score)
+
+}
 function GeneraGriglia(){
     griglia.classList.add('griglia');
     for(let x = 1; x <= numeroCelle; x++){
@@ -65,10 +77,23 @@ function GeneraGriglia(){
     }
  campo.append(griglia)
 }
-
+let risultato = document.getElementById('risultato')
 GeneraGriglia()
-
+function endGame(){
+    const squares = document.querySelectorAll('.box')
+    console.log(squares)
+    for(let i = 0 ; i < numeroCelle; i++){
+        squares[i].removeEventListener('click', listener)
+    }
+    if(score == maxAttempt){
+        risultato.innerText = `
+        Hai vinto !!!!`
+    }else{
+        console.log('Hai perso il numer odi tentativi è stato x')
+        risultato.innerText = `
+        Hai perso , il numero di tentativi è stato : ${score}`
+    }
 }
-
+}
 
 btn.addEventListener('click', play);

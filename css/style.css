@@ -1,10 +1,14 @@
-header , footer{
-    height: 100px;
-
-}
 body{
     height: 100vh;
 }
+header{
+    height: 100px;
+
+}
+footer{
+    height: 100px;
+}
+
 main{
     height: calc(100vh - 200px);
 }
@@ -12,8 +16,8 @@ main{
     display: flex;
     flex-wrap: wrap;
     align-content: flex-start;
-    width: 700px;
-    height: 700px;
+    width: 500px;
+    height: 500px;
     background-color: aqua;
 }
 .box{
