@@ -40,10 +40,19 @@ function GeneraCelle(nCelle){
     cella.innerHTML = `
     <p>${nCelle}</p>
     `;
+  
     cella.addEventListener('click', function(){
-        cella.classList.add('verde');
+        console.log(cella.innerText)
+        if(!arrayBombe.includes(parseInt(cella.innerText))){
+            cella.classList.add('verde');
+
+        }else{
+            cella.classList.add('bomba')
+            console.log('bomba')
+        }
         numericlick.push(cella.innerText);
         console.log(numericlick)
+
     })
     return cella;
 }
